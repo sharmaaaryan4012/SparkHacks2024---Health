@@ -7,7 +7,7 @@ SparkHacks-2024 (University of Illinois at Chicago)
 import tkinter as tk
 from tkinter import *
 from mindful import MindfulPage
-from tkinter import messagebox
+from reminder import ReminderPage
 from prescription import PrescriptionPage
 from about import AboutPage
 from doctor import DoctorsPage
@@ -78,7 +78,8 @@ class MainPage(tk.Tk):
         PrescriptionPage(self, self.callback).pack(fill=tk.BOTH, expand=True)
 
     def gotoReminders(self):
-        messagebox.showinfo("Go to Reminders", "This will go to the Reminders section.")
+        self.clearWidgets()
+        ReminderPage(self, self.callback).pack(fill=tk.BOTH, expand=True)
 
     def gotoMindful(self):
         self.clearWidgets()
