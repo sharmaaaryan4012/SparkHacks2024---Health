@@ -19,6 +19,7 @@ class MainPage(tk.Tk):
         super().__init__()
         self.title('Super Health App')
         self.state('zoomed')
+        self.configure(bg = "white")
         self.createWidgets()
 
     def createWidgets(self):
