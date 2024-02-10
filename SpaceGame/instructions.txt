@@ -1,0 +1,3 @@
+1. You can click on the dice icon, in order to simulate a dice throw, and thus moving your token
+2. If the token reaches a place portraying a negative aspect, it will loose places
+3. Whereas if the token reaches a place portraying a positive aspect, it will gain places
