@@ -20,7 +20,7 @@ class MainPage(tk.Tk):
         super().__init__()
         self.title('Super Health App')
         self.geometry("4000x2250")
-
+        self.configure(bg='white')
         self.bg = PhotoImage(file="bg.png")
         self.label1 = Label(self, image=self.bg)
         self.label1.place(x=0, y=0, relwidth=1, relheight=1)
