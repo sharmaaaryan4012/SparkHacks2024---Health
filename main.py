@@ -10,6 +10,7 @@ from mindful import MindfulPage
 from tkinter import messagebox
 from prescription import PrescriptionPage
 from about import AboutPage
+from doctor import DoctorsPage
 import subprocess
 import sys
 import os
@@ -57,7 +58,8 @@ class MainPage(tk.Tk):
 
 
     def gotoDoctors(self):
-        messagebox.showinfo("Go to Doctors", "This will go to the Doctors section.")
+        self.clearWidgets()
+        DoctorsPage(self, self.callback).pack(fill=tk.BOTH, expand=True)
 
     def gotoPrescription(self):
         self.clearWidgets()
