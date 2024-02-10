@@ -44,23 +44,26 @@ class MindfulPage(tk.Frame):
         self.output_label.pack(pady=20)
 
     def searchContent(self):
-        content_type = self.content_var.get()
-        search_tags = self.search_entry.get()
-        results = self.getContent(content_type, search_tags)
+        content_type = self.contentTypeVar.get()
+        search_tags = self.searchEntry.get()
+        results = self.getContentFromDB(content_type, search_tags)
 
-        output_text = "Results:\n\n"
-        for title, url in results:
-            output_text += f"Title: {title}\nURL: {url}\n\n"
+        # Clear previous results
+        self.resultsScrolledText.delete('1.0', tk.END)
 
-        self.output_label.config(text=output_text)
+        if not results:
+            self.resultsScrolledText.insert(tk.END, "Uh Oh! No results found.\n\n")
+
+        else:
+            for title, url in results:
+                self.resultsScrolledText.insert(tk.END, f"Title: {title}\nURL: {url}\n\n")
 
     def getContent(self, content_type, search_tags):
         conn = sqlite3.connect('project.db')
         cursor = conn.cursor()
 
-        # Adjusted query to search in both 'title' and 'tags'
         search_query = f"%{search_tags}%"
-        cursor.execute("SELECT title, url FROM mindful_space WHERE contentType=? AND (tags LIKE ? OR title LIKE ?)", (content_type, search_query, search_query))
+        cursor.execute("SELECT title, url FROM mindful_space WHERE contentType=? AND (tags LIKE ? OR title LIKE ?) ORDER BY title", (content_type, search_query, search_query))
         results = cursor.fetchall()
 
         conn.close()

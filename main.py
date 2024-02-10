@@ -18,7 +18,7 @@ class MainPage(tk.Tk):
         self.widget()
 
     def widget(self):
-        welcome_label = tk.Label(self, text="Welcome To The Super Health App", fg='black', bg='white', font=('Helvetica', 25, 'bold'))
+        welcome_label = tk.Label(self, text="Welcome to the Onboard with the All-in-one Health Companion!", fg='black', bg='white', font=('Helvetica', 25, 'bold'))
         welcome_label.pack(pady=20)
 
         doctors_button = tk.Button(self, text="Doctors", font=('Helvetica', 12), command=self.gotoDoctors)
