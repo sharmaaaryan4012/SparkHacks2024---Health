@@ -8,6 +8,7 @@ SparkHacks-2024 (University of Illinois at Chicago)
 import tkinter as tk
 from mindful import MindfulPage
 from tkinter import messagebox
+from prescription import PrescriptionPage
 import subprocess
 import sys
 import os
@@ -45,7 +46,11 @@ class MainPage(tk.Tk):
         messagebox.showinfo("Go to Doctors", "This will go to the Doctors section.")
 
     def gotoPrescription(self):
-        messagebox.showinfo("Go to Prescriptions", "This will go to the Prescription Manager section.")
+        for widget in self.winfo_children():
+            widget.destroy()
+
+        pres_page = PrescriptionPage(self, self.CallBack)
+        pres_page.pack(fill=tk.BOTH, expand=True)
 
     def gotoReminders(self):
         messagebox.showinfo("Go to Reminders", "This will go to the Reminders section.")
