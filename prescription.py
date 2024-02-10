@@ -5,7 +5,8 @@ SparkHacks-2024 (University of Illinois at Chicago)
 """
 
 import tkinter as tk
-from tkinter import messagebox, simpledialog
+from addPrescription import AddPrescriptionForm
+from tkinter import messagebox
 import sqlite3
 
 class PrescriptionPage(tk.Frame):
@@ -65,7 +66,8 @@ class PrescriptionPage(tk.Frame):
 
 
     def addNewPrescription(self):
-        pass
+        self.clearWidgets()
+        AddPrescriptionForm(self.master, self.goBackCall, self.database)
 
 
     def removePrescription(self):
@@ -86,3 +88,6 @@ class PrescriptionPage(tk.Frame):
         self.destroy()
         self.goBackCall()
 
+    def clearWidgets(self):
+        for widget in self.winfo_children():
+            widget.destroy()
