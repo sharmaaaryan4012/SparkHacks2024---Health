@@ -19,13 +19,11 @@ class MainPage(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title('Super Health App')
-        self.geometry('4000x2250')  # Unusually large, but kept as per request
-        self.state('zoomed')
+        self.geometry("4000x2250")
 
-        # Load the background image
-        self.bg = PhotoImage(file="IMG__2.png")
+        self.bg = PhotoImage(file="bg.png")
         self.label1 = Label(self, image=self.bg)
-        self.label1.place(x=0, y=0, relwidth=1, relheight=1)  # Cover the whole window
+        self.label1.place(x=0, y=0, relwidth=1, relheight=1)
 
         self.createWidgets()
 
@@ -104,7 +102,7 @@ class MainPage(tk.Tk):
 
     def clearWidgets(self):
         for widget in self.winfo_children():
-            if widget != self.label1:  # Exclude background label from being destroyed
+            if widget != self.label1:
                 widget.destroy()
 
 if __name__ == '__main__':
