@@ -14,7 +14,7 @@ class MainPage(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title('Super Health App')
-        self.geometry('600x400')
+        self.state('zoomed')
         self.widget()
 
     def widget(self):
@@ -45,8 +45,12 @@ class MainPage(tk.Tk):
     def gotoMindful(self):
         for widget in self.winfo_children():
             widget.destroy()
-        MindfulPage(self)
+        MindfulPage(self, self.CallBack)
 
+    def CallBack(self):
+        for widget in self.winfo_children():
+            widget.destroy()
+        self.widget()
 
 if __name__ == '__main__':
     app = MainPage()
