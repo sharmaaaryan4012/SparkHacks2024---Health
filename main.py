@@ -4,7 +4,6 @@ Creators: Aaryan Sharma, Ayush Bhardwaj
 SparkHacks-2024 (University of Illinois at Chicago)
 """
 
-
 import tkinter as tk
 from tkinter import *
 from mindful import MindfulPage
@@ -16,7 +15,6 @@ import subprocess
 import sys
 import os
 
-
 class MainPage(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -26,14 +24,12 @@ class MainPage(tk.Tk):
 
         # Load the background image
         self.bg = PhotoImage(file="IMG__2.png")
-        label1 = Label(self, image=self.bg)
-        label1.place(x=0, y=0, relwidth=1, relheight=1)  # Cover the whole window
+        self.label1 = Label(self, image=self.bg)
+        self.label1.place(x=0, y=0, relwidth=1, relheight=1)  # Cover the whole window
 
         self.createWidgets()
 
     def createWidgets(self):
-
-
         welcomeLabel = tk.Label(self, text=" SUPER HEALTH", fg='purple4',
                                 bg='white', font=('Bold Condensed', 60, 'bold'))
         welcomeLabel2 = tk.Label(self, text=" Welcome onboard with Mindful Technology: Your Personalized Wellness Oasis!", fg='purple4',
@@ -75,51 +71,41 @@ class MainPage(tk.Tk):
                                bg='white')
         quitButton.pack(side='right', padx=10, pady=10)
 
-
-
     def gotoDoctors(self):
         self.clearWidgets()
         DoctorsPage(self, self.callback).pack(fill=tk.BOTH, expand=True)
-
 
     def gotoPrescription(self):
         self.clearWidgets()
         PrescriptionPage(self, self.callback).pack(fill=tk.BOTH, expand=True)
 
-
     def gotoReminders(self):
         messagebox.showinfo("Go to Reminders", "This will go to the Reminders section.")
-
 
     def gotoMindful(self):
         self.clearWidgets()
         MindfulPage(self, self.callback).pack(fill=tk.BOTH, expand=True)
 
-
     def gotoAbout(self):
         self.clearWidgets()
         AboutPage(self, self.callback).pack(fill=tk.BOTH, expand=True)
 
-
     def Quit(self):
         sys.exit(0)
-
 
     def launchSpaceGame(self):
         currentDir = os.path.dirname(os.path.abspath(__file__))
         spaceGamePath = os.path.join(currentDir, 'SpaceGame', 'space.py')
         subprocess.Popen([sys.executable, spaceGamePath])
 
-
     def callback(self):
         self.clearWidgets()
         self.createWidgets()
 
-
     def clearWidgets(self):
         for widget in self.winfo_children():
-            widget.destroy()
-
+            if widget != self.label1:  # Exclude background label from being destroyed
+                widget.destroy()
 
 if __name__ == '__main__':
     app = MainPage()
