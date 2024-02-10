@@ -42,14 +42,19 @@ class MainPage(tk.Tk):
         mindfulButton = tk.Button(buttonsFrame, text="Mindful Space", font=('Helvetica', 12), command=self.gotoMindful, bg='white')
         mindfulButton.pack(pady=10, ipadx=20, ipady=10, fill='x')
 
+        spaceGameButton = tk.Button(buttonsFrame, text="Space Game", font=('Helvetica', 12), command=self.launchSpaceGame, bg='white')
+        spaceGameButton.pack(pady=10, ipadx=20, ipady=10, fill='x')
+
         bottomFrame = tk.Frame(self, bg='white')
         bottomFrame.pack(side='bottom', fill='x', expand=False)
 
         aboutButton = tk.Button(bottomFrame, text="About", font=('Helvetica', 12), command=self.gotoAbout, bg='white')
         aboutButton.pack(side='left', padx=10, pady=10)
 
-        spaceGameButton = tk.Button(bottomFrame, text="Space Game", font=('Helvetica', 12), command=self.launchSpaceGame, bg='white')
-        spaceGameButton.pack(side='right', padx=10, pady=10)
+        quitButton = tk.Button(bottomFrame, text="Quit", font=('Helvetica', 12), command=self.Quit, bg='white')
+        quitButton.pack(side='right', padx=10, pady=10)
+
+
 
     def gotoDoctors(self):
         messagebox.showinfo("Go to Doctors", "This will go to the Doctors section.")
@@ -68,6 +73,11 @@ class MainPage(tk.Tk):
     def gotoAbout(self):
         self.clearWidgets()
         AboutPage(self, self.callback).pack(fill=tk.BOTH, expand=True)
+
+
+    def Quit(self):
+        sys.exit(0)
+
 
     def launchSpaceGame(self):
         currentDir = os.path.dirname(os.path.abspath(__file__))
