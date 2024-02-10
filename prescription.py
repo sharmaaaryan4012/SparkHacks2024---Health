@@ -4,7 +4,7 @@
 # SparkHacks-2024 (University of Illinois at Chicago)
 # """
 #
-# print("Welcome to prescription column!")
+# print("Welcome to create prescription page!")
 #
 # pres_name = input("Kindly enter prescription name \n").upper()
 # num_Meds = input("Kindly enter the number of meds prescribed \n").upper()
@@ -31,39 +31,69 @@
 # prescription.py
 
 import tkinter as tk
-from tkinter import Label, Entry, Button, messagebox
+from tkinter import Label, Entry, Button, messagebox, Toplevel
+
 
 class PrescriptionPage(tk.Frame):
     def __init__(self, master=None, callback=None):
         super().__init__(master)
         self.master = master
         self.callback = callback
-        self.create_widgets()
+        self.pack()
+        self.main_menu()
 
-    def create_widgets(self):
-        # Prescription name entry
-        self.lbl_pres_name = Label(self, text="Prescription Name:")
-        self.lbl_pres_name.grid(row=0, column=0)
-        self.entry_pres_name = Entry(self)
-        self.entry_pres_name.grid(row=0, column=1)
+    def main_menu(self):
+        self.clear_widgets()
 
-        # Number of meds entry
-        self.lbl_num_meds = Label(self, text="Number of Meds Prescribed:")
-        self.lbl_num_meds.grid(row=1, column=0)
-        self.entry_num_meds = Entry(self)
-        self.entry_num_meds.grid(row=1, column=1)
+        Label(self, text="Prescription Management", font=('Helvetica', 16)).pack(pady=20)
 
-        # Submit button
-        self.submit_button = Button(self, text="Submit", command=self.submit)
-        self.submit_button.grid(row=2, column=0, columnspan=2)
+        Button(self, text="View Prescriptions", command=self.view_prescriptions).pack(pady=10)
+        Button(self, text="Create New Prescription", command=self.create_prescription_form).pack(pady=10)
+        Button(self, text="Back", command=self.back).pack(pady=10)
 
-    def submit(self):
-        pres_name = self.entry_pres_name.get().upper()
-        num_meds = self.entry_num_meds.get().upper()
+    def view_prescriptions(self):
+        # Placeholder for viewing prescriptions logic
+        messagebox.showinfo("View Prescriptions", "This would show all existing prescriptions.")
+
+    def create_prescription_form(self):
+        self.clear_widgets()
+
+        Label(self, text="Create Prescription", font=('Helvetica', 16)).pack(pady=20)
+
+        # Simplified form based on the given structure
+        self.entries = {
+            'pres_name': None,
+            'num_Meds': None,
+            # You would dynamically generate entries for each medication based on num_Meds
+            # This is a simplified representation
+        }
+
+        Label(self, text="Prescription Name:").pack()
+        self.entries['pres_name'] = Entry(self)
+        self.entries['pres_name'].pack()
+
+        Label(self, text="Number of Meds Prescribed:").pack()
+        self.entries['num_Meds'] = Entry(self)
+        self.entries['num_Meds'].pack()
+
+        Button(self, text="Submit", command=self.submit_prescription).pack(pady=10)
+        Button(self, text="Back", command=self.main_menu).pack(pady=10)
+
+    def submit_prescription(self):
+        pres_name = self.entries['pres_name'].get().upper()
+        num_meds = self.entries['num_Meds'].get().upper()
         # Implement logic for handling prescription data here
-        messagebox.showinfo("Submission", f"Prescription '{pres_name}' with {num_meds} meds submitted.")
-        # Optionally call the callback to return to the main window
+        messagebox.showinfo("Prescription Created", f"Prescription '{pres_name}' with {num_meds} meds added.")
+        self.main_menu()
+
+    def back(self):
         if self.callback:
             self.callback()
+
+    def clear_widgets(self):
+        for widget in self.winfo_children():
+            widget.destroy()
+
+
 
 
