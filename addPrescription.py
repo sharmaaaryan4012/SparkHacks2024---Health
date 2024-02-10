@@ -2,7 +2,7 @@
 Project: Super Health App
 Creators: Aaryan Sharma, Ayush Bhardwaj
 SparkHacks-2024 (University of Illinois at Chicago)
-"""
+   """
 
 
 import tkinter as tk
@@ -23,45 +23,45 @@ class AddPrescriptionForm(tk.Frame):
         self.master.title('Add New Prescription')
 
         # Name of the Prescription
-        tk.Label(self, text="Prescription Name:").pack()
+        tk.Label(self, text="Prescription Name:", fg = "purple4", bg = "white", font =("Arial", 15, "bold")).pack()
         self.prescriptionNameEntry = tk.Entry(self)
         self.prescriptionNameEntry.pack()
 
         # Medication Name
-        tk.Label(self, text="Medication Name:").pack()
+        tk.Label(self, text="Medication Name:", fg = "purple4", bg = "white", font =("Arial", 15, "bold")).pack()
         self.medicationNameEntry = tk.Entry(self)
         self.medicationNameEntry.pack()
 
         # Stomach Requirement
-        tk.Label(self, text="Stomach Requirement (empty/full):").pack()
+        tk.Label(self, text="Stomach Requirement (empty/full):", fg = "purple4", bg = "white", font =("Arial", 15, "bold")).pack()
         self.stomachRequirementEntry = tk.Entry(self)
         self.stomachRequirementEntry.pack()
 
         # Timing
-        tk.Label(self, text="Timing (morning/afternoon/night):").pack()
+        tk.Label(self, text="Timing (morning/afternoon/night):", fg = "purple4", bg = "white", font =("Arial", 15, "bold")).pack()
         self.timingEntry = tk.Entry(self)
         self.timingEntry.pack()
 
         # Meal Timings
-        tk.Label(self, text="Breakfast Time(HH:MM):").pack()
+        tk.Label(self, text="Breakfast Time(HH:MM):", fg = "purple4", bg = "white", font =("Arial", 15, "bold")).pack()
         self.bTimeEntry = tk.Entry(self)
         self.bTimeEntry.pack()
 
-        tk.Label(self, text="Lunch Time(HH:MM):").pack()
+        tk.Label(self, text="Lunch Time(HH:MM):", fg = "purple4", bg = "white", font =("Arial", 15, "bold")).pack()
         self.lTimeEntry = tk.Entry(self)
         self.lTimeEntry.pack()
 
-        tk.Label(self, text="Dinner Time(HH:MM):").pack()
+        tk.Label(self, text="Dinner Time(HH:MM):", fg = "purple4", bg = "white", font =("Arial", 15, "bold")).pack()
         self.dTimeEntry = tk.Entry(self)
         self.dTimeEntry.pack()
 
         # Number of Pills
-        tk.Label(self, text="Number of Pills:").pack()
+        tk.Label(self, text="Number of Pills:", fg = "purple4", bg = "white", font =("Arial", 15, "bold")).pack()
         self.numberOfPillsEntry = tk.Entry(self)
         self.numberOfPillsEntry.pack()
 
         # Duration
-        tk.Label(self, text="Duration (in days):").pack()
+        tk.Label(self, text="Duration (in days):", fg = "purple4", bg = "white", font =("Arial", 15, "bold")).pack()
         self.durationEntry = tk.Entry(self)
         self.durationEntry.pack()
 
@@ -76,6 +76,10 @@ class AddPrescriptionForm(tk.Frame):
         # Back Button
         backButton = tk.Button(self, text="Back", command=self.goBack)
         backButton.pack()
+
+        bottom_frame = tk.Frame(self, bg='purple4', height=50)
+        bottom_frame.pack(side='bottom', fill='x', expand=False)
+        bottom_frame.pack_propagate(False)
 
     def submitPrescription(self):
         # Collect the data
