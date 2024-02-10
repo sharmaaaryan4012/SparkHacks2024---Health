@@ -19,23 +19,23 @@ class MindfulPage(tk.Frame):
         self.pack()
 
     def widget(self):
-        intro_label = tk.Label(self, text="A tech solution that prioritizes mental health and well-being within communities.", wraplength=500, justify="left")
+        intro_label = tk.Label(self, text="Welcome to our search engine your health companion!",fg = "purple4", bg = "white", font =("Arial", 30, "bold"), wraplength=500, justify="left")
         intro_label.pack(pady=(10, 20))
 
-        tk.Label(self, text="Enter tags for search:").pack()
+        tk.Label(self, text="Enter tags for search:",fg = "purple4", bg = "white", font =("Arial", 30, "bold")).pack()
         self.search_entry = tk.Entry(self)
         self.search_entry.pack()
 
         self.content_var = tk.StringVar()
         self.content_var.set('book')
 
-        tk.Radiobutton(self, text="Books/Articles", variable=self.content_var, value='book').pack(anchor=tk.W)
-        tk.Radiobutton(self, text="Videos", variable=self.content_var, value='video').pack(anchor=tk.W)
+        tk.Radiobutton(self, text="Books/Articles",fg = "purple4", bg = "white", font =("Arial", 30, "bold"), variable=self.content_var, value='book').pack(anchor=tk.W)
+        tk.Radiobutton(self, text="Videos",fg = "purple4", bg = "white", font =("Arial", 30, "bold"), variable=self.content_var, value='video').pack(anchor=tk.W)
 
-        search_button = tk.Button(self, text="Search", command=self.searchContent)
+        search_button = tk.Button(self, fg = "purple4", bg = "white", font =("Arial", 30, "bold"), text="Search", command=self.searchContent)
         search_button.pack(pady=20)
 
-        back_button = tk.Button(self, text="Back", command=self.goBack)
+        back_button = tk.Button(self, fg = "purple4", bg = "white", font =("Arial", 30, "bold"), text="Back", command=self.goBack)
         back_button.pack(pady=20)
 
         # Change from Label to ScrolledText for displaying search results

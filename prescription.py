@@ -2,7 +2,7 @@
 Project: Super Health App
 Creators: Aaryan Sharma, Ayush Bhardwaj
 SparkHacks-2024 (University of Illinois at Chicago)
-"""
+     hey"""
 
 
 
@@ -17,6 +17,7 @@ class PrescriptionPage(tk.Frame):
         self.master = master
         self.goBackCall = goBackCall
         self.database = 'project.db'
+        self.configure(bg='white')
         self.createWidgets()
         self.pack()
 
@@ -33,17 +34,20 @@ class PrescriptionPage(tk.Frame):
         self.loadPrescriptions()
 
         # Buttons for different actions
-        viewButton = tk.Button(self, text="View", command=self.viewPrescription)
-        viewButton.pack(side=tk.LEFT, padx=20, pady=10)
+        viewButton = tk.Button(self, text="View",fg = "purple4", bg = "white", font =("Arial", 20, "bold"), command=self.viewPrescription)
+        viewButton.pack(side=tk.TOP, padx=20, pady=5)
 
-        addButton = tk.Button(self, text="Add New", command=self.addNewPrescription)
-        addButton.pack(side=tk.LEFT, padx=20, pady=10)
+        addButton = tk.Button(self, text="Add New",fg = "purple4", bg = "white", font =("Arial", 20, "bold"), command=self.addNewPrescription)
+        addButton.pack(side=tk.TOP, padx=20, pady=5)
 
-        removeButton = tk.Button(self, text="Remove", command=self.removePrescription)
-        removeButton.pack(side=tk.LEFT, padx=20, pady=10)
+        removeButton = tk.Button(self, text="Remove",fg = "purple4", bg = "white", font =("Arial", 20, "bold"), command=self.removePrescription)
+        removeButton.pack(side=tk.TOP, padx=20, pady=5)
 
-        backButton = tk.Button(self, text="Back", command=self.goBack)
-        backButton.pack(pady=20)
+        backButton = tk.Button(self, text="Back",fg = "purple4", bg = "white", font =("Arial", 20, "bold"), command=self.goBack)
+        backButton.pack(side=tk.TOP, pady=5)
+        bottom_frame = tk.Frame(self, bg='purple4', height=50)
+        bottom_frame.pack(side='bottom', fill='x', expand=False)
+        bottom_frame.pack_propagate(False)
 
     def loadPrescriptions(self):
         self.prescriptionListBox.delete(0, tk.END)
@@ -67,8 +71,14 @@ class PrescriptionPage(tk.Frame):
             conn.close()
 
     def addNewPrescription(self):
-        self.clearWidgets()
-        AddPrescriptionForm(self.master, self.goBackCall, self.database)
+        # First, clear the current content of the PrescriptionPage
+        for widget in self.winfo_children():
+            widget.destroy()
+
+        # Then, instantiate and pack the AddPrescriptionForm onto the master window
+        # Note that this will place the form on top of the background image, which remains intact
+        self.add_prescription_form = AddPrescriptionForm(self.master, self.goBackCall, self.database)
+        self.add_prescription_form.pack(expand=True, fill=tk.BOTH)
 
     def removePrescription(self):
         selected = self.prescriptionListBox.curselection()

@@ -2,7 +2,8 @@
 Project: Super Health App
 Creators: Aaryan Sharma , Ayush Bhardwaj
 SparkHacks-2024 (University of Illinois at Chicago)
-   hey"""
+"""
+
 
 import tkinter as tk
 from tkinter import *
