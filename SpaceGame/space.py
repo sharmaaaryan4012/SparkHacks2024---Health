@@ -76,7 +76,7 @@ def game_start():                                                               
 def game_instruction(x,y):                                                          # function used to define the 2nd screen containing the instructions.
   global s
   s.clearscreen()
-  s.bgcolor("black")
+  s.bgpic("space.gif")
   instruct = open("instructions.txt")
   instruction_lines = instruct.readlines()
   instruct.close()
@@ -303,7 +303,7 @@ addshape("Snakes.gif")
 addshape("Ladders.gif")
 
 s = turtle.getscreen()
-s.bgcolor("black")
+s.bgpic("space.gif")
 s.listen()
 
 game_start()
