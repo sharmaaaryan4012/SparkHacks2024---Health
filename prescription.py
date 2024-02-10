@@ -5,149 +5,32 @@ SparkHacks-2024 (University of Illinois at Chicago)
 """
 
 
-# import tkinter as tk
-# from tkinter import Label, Entry, Button, messagebox
-#
-# class PrescriptionPage(tk.Frame):
-#     def __init__(self, master=None, callback=None):
-#         super().__init__(master)
-#         self.master = master
-#         self.callback = callback
-#         self.pack()
-#         self.main_menu()
-#
-#     def main_menu(self):
-#         self.clear_widgets()
-#         Label(self, text="Prescription Management", font=('Helvetica', 16)).pack(pady=20)
-#         Button(self, text="View Prescriptions", command=self.view_prescriptions).pack(pady=10)
-#         Button(self, text="Create New Prescription", command=self.create_prescription_form).pack(pady=10)
-#         Button(self, text="Back", command=self.back).pack(pady=10)
-#
-#     def view_prescriptions(self):
-#         messagebox.showinfo("View Prescriptions", "This would show all existing prescriptions.")
-#
-#     def create_prescription_form(self):
-#         self.clear_widgets()
-#         Label(self, text="Create Prescription", font=('Helvetica', 16)).pack(pady=20)
-#         Label(self, text="Prescription Name:").pack()
-#         self.pres_name_entry = Entry(self)
-#         self.pres_name_entry.pack()
-#         Label(self, text="Number of Meds Prescribed:").pack()
-#         self.num_meds_entry = Entry(self)
-#         self.num_meds_entry.pack()
-#         Button(self, text="Next", command=self.meds_detail_form).pack(pady=10)
-#         Button(self, text="Back", command=self.main_menu).pack(pady=10)
-#
-#     def meds_detail_form(self):
-#         try:
-#             num_meds = int(self.num_meds_entry.get())
-#             self.prescription_details = {
-#                 'pres_name': self.pres_name_entry.get().upper(),
-#                 'meds': [],
-#                 'reminder': False  # Initialize the reminder attribute
-#             }
-#             self.clear_widgets()
-#             Label(self, text=f"Enter Details for {num_meds} Medications", font=('Helvetica', 16)).pack(pady=20)
-#             self.meds_entries = []
-#             for i in range(num_meds):
-#                 Label(self, text=f"Medicine {i + 1} Name:").pack()
-#                 med_name_entry = Entry(self)
-#                 med_name_entry.pack()
-#
-#                 Label(self, text=f"Number of Pills:").pack()
-#                 num_pills_entry = Entry(self)
-#                 num_pills_entry.pack()
-#
-#                 Label(self, text=f"Duration (Days):").pack()
-#                 med_dur_entry = Entry(self)
-#                 med_dur_entry.pack()
-#
-#                 Label(self, text="Empty or Full Stomach (E/F):").pack()
-#                 med_empty_entry = Entry(self)
-#                 med_empty_entry.pack()
-#
-#                 Label(self, text="Time (M/A/E/N):").pack()
-#                 med_time_entry = Entry(self)
-#                 med_time_entry.pack()
-#
-#                 self.meds_entries.append(
-#                     (med_name_entry, num_pills_entry, med_dur_entry, med_empty_entry, med_time_entry))
-#
-#             Label(self, text="Do you want to set a reminder? (Y/N):").pack()
-#             self.reminder_entry = Entry(self)
-#             self.reminder_entry.pack()
-#
-#             Button(self, text="Submit", command=self.collect_meds_details).pack(pady=10)
-#             Button(self, text="Back", command=self.create_prescription_form).pack(pady=10)
-#         except ValueError:
-#             messagebox.showerror("Error", "Please enter a valid number of medications.")
-#             self.create_prescription_form()
-#
-#     def collect_meds_details(self):
-#         for entries in self.meds_entries:
-#             med_name, num_pills, med_dur, med_empty, med_time = (entry.get().upper() for entry in entries)
-#             # Translate "E" to "Empty" and "F" to "Full"
-#             med_empty_translated = "Empty" if med_empty == "E" else "Full" if med_empty == "F" else "Unknown"
-#
-#             self.prescription_details['meds'].append({
-#                 'name': med_name,
-#                 'pills': num_pills,
-#                 'duration': med_dur,
-#                 'empty': med_empty_translated,
-#                 'time': med_time,
-#             })
-#
-#         reminder_response = self.reminder_entry.get().lower()
-#         self.prescription_details['reminder'] = True if reminder_response == 'y' else False
-#
-#         self.show_prescription_summary()
-#
-#     def show_prescription_summary(self):
-#         self.clear_widgets()
-#         Label(self, text="Prescription Summary", font=('Helvetica', 16)).pack(pady=20)
-#         Label(self, text=f"Prescription Name: {self.prescription_details['pres_name']}").pack()
-#         for med in self.prescription_details['meds']:
-#             Label(self,
-#                   text=f"Name of the Medicine: {med['name']}\n The number of Pills: {med['pills']}\n The Medicine is prescribed for: {med['duration']} days\n The Medicine should be taken: {med['empty']} stomach\n The medicine is to be taken at: (M : Morning, A : Afternoon, E : Evening, N : Night) {med['time']}").pack()
-#         reminder_text = "Yes" if self.prescription_details['reminder'] else "No"
-#         Label(self, text=f"Reminder Set: {reminder_text}").pack()
-#
-#         Button(self, text="Back to Main Menu", command=self.main_menu).pack(pady=10)
-#
-#     def back(self):
-#         if self.callback:
-#             self.callback()
-#
-#     def clear_widgets(self):
-#         for widget in self.winfo_children():
-#             widget.destroy()
-
-
 import tkinter as tk
 from tkinter import messagebox, simpledialog
 import sqlite3
 
+
 class PrescriptionPage(tk.Frame):
-    def __init__(self, master, goBackCall):
+    def __init__(self, master, goBackCallback):
         super().__init__(master)
         self.master = master
-        self.goBackCall = goBackCall
+        self.goBackCallback = goBackCallback
         self.database = 'project.db'
         self.createWidgets()
         self.pack()
 
     def createWidgets(self):
         self.master.title('Prescription Manager')
+        self.configureWidgets()
+        self.loadPrescriptions()
 
+    def configureWidgets(self):
         viewPrescriptionLabel = tk.Label(self, text="View Prescription", font=('Helvetica', 18, 'bold'))
         viewPrescriptionLabel.pack(pady=20)
 
-        # List prescriptions
         self.prescriptionListBox = tk.Listbox(self, width=50, height=10)
         self.prescriptionListBox.pack(pady=20)
-        self.loadPrescriptions()
 
-        # Create a frame to hold the action buttons
         buttonsFrame = tk.Frame(self)
         buttonsFrame.pack(pady=10)
 
@@ -167,39 +50,141 @@ class PrescriptionPage(tk.Frame):
         self.prescriptionListBox.delete(0, tk.END)
         conn = sqlite3.connect(self.database)
         cursor = conn.cursor()
-        cursor.execute("SELECT prescriptionId, medicationName FROM prescriptions")
-        for row in cursor.fetchall():
-            self.prescriptionListBox.insert(tk.END, f"{row[0]} - {row[1]}")
+        cursor.execute("SELECT DISTINCT prescriptionName FROM prescriptions")
+        for prescription_name in cursor.fetchall():
+            self.prescriptionListBox.insert(tk.END, prescription_name[0])
         conn.close()
 
     def viewPrescription(self):
         selected = self.prescriptionListBox.curselection()
         if selected:
-            prescriptionId = self.prescriptionListBox.get(selected).split(' - ')[0]
+            prescription_name = self.prescriptionListBox.get(selected)
             conn = sqlite3.connect(self.database)
             cursor = conn.cursor()
-            cursor.execute("SELECT * FROM prescriptions WHERE prescriptionId = ?", (prescriptionId,))
-            prescription = cursor.fetchone()
-            details = f"Medication Name: {prescription[1]}\nStomach Requirement: {prescription[2]}\nTiming: {prescription[3]}\nMeal Times: {prescription[4]}\nDuration: {prescription[5]} days\nNumber of Pills: {prescription[6]}\nReminder Required: {'Yes' if prescription[7] else 'No'}"
+            cursor.execute("SELECT * FROM prescriptions WHERE prescriptionName = ?", (prescription_name,))
+            prescriptions = cursor.fetchall()
+            details = "\n\n".join(f"Medication Name: {pres[1]}\nStomach Requirement: {pres[2]}\nTiming: {pres[3]}\nMeal Times: {pres[4]}\nDuration: {pres[5]} days\nNumber of Pills: {pres[6]}\nReminder Required: {'Yes' if pres[7] else 'No'}" for pres in prescriptions)
             messagebox.showinfo("Prescription Details", details)
             conn.close()
 
     def addNewPrescription(self):
-        pass
+        prescriptionName = simpledialog.askstring("Input", "Enter the name of the prescription:")
+        if not prescriptionName:
+            messagebox.showerror("Error", "You must enter a name for the prescription.")
+            return
+
+        numMedications = simpledialog.askinteger("Input", "How many medications in this prescription?", minvalue=1)
+        if not numMedications:
+            return
+
+        AddMedicationWindow(self, self.addPrescriptionsToDatabase, prescriptionName, numMedications)
+
+    def addPrescriptionsToDatabase(self, prescriptions):
+        conn = sqlite3.connect(self.database)
+        cursor = conn.cursor()
+
+        try:
+            for pres in prescriptions:
+                cursor.execute("""INSERT INTO prescriptions (prescriptionId, prescriptionName, medicationName, stomachRequirement, timing, 
+                    mealTimes, duration, numberOfPills, reminderRequired) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""", pres)
+
+            conn.commit()
+        except sqlite3.IntegrityError as e:
+            messagebox.showerror("Database Error", f"An error occurred: {e}")
+        finally:
+            conn.close()
 
     def removePrescription(self):
         selected = self.prescriptionListBox.curselection()
         if selected:
-            result = messagebox.askyesno("Remove Prescription", "Are you sure you want to remove this prescription?")
+            prescription_name = self.prescriptionListBox.get(selected)
+            result = messagebox.askyesno("Remove Prescription", f"Are you sure you want to remove the prescription '{prescription_name}' and all associated medications?")
             if result:
-                prescriptionId = self.prescriptionListBox.get(selected).split(' - ')[0]
                 conn = sqlite3.connect(self.database)
                 cursor = conn.cursor()
-                cursor.execute("DELETE FROM prescriptions WHERE prescriptionId = ?", (prescriptionId,))
+                cursor.execute("DELETE FROM prescriptions WHERE prescriptionName = ?", (prescription_name,))
                 conn.commit()
                 conn.close()
                 self.loadPrescriptions()
 
     def goBack(self):
         self.destroy()
-        self.goBackCall()
+        self.goBackCallback()
+
+
+class AddMedicationWindow(tk.Toplevel):
+    def __init__(self, master, callback, prescriptionName, numMedications):
+        super().__init__(master)
+        self.master = master
+        self.callback = callback
+        self.prescriptionName = prescriptionName
+        self.numMedications = numMedications
+        self.currentMedication = 0
+        self.prescriptions = []
+        self.createWidgets()
+
+    def createWidgets(self):
+        self.title('Add New Medication')
+
+        tk.Label(self, text="Medication Name:").pack()
+        self.medicationNameEntry = tk.Entry(self)
+        self.medicationNameEntry.pack()
+
+        tk.Label(self, text="Stomach Requirement (empty/full):").pack()
+        self.stomachRequirementEntry = tk.Entry(self)
+        self.stomachRequirementEntry.pack()
+
+        tk.Label(self, text="Timing (morning/evening/night):").pack()
+        self.timingEntry = tk.Entry(self)
+        self.timingEntry.pack()
+
+        tk.Label(self, text="Meal Times (comma-separated):").pack()
+        self.mealTimesEntry = tk.Entry(self)
+        self.mealTimesEntry.pack()
+
+        tk.Label(self, text="Duration (in days):").pack()
+        self.durationEntry = tk.Entry(self)
+        self.durationEntry.pack()
+
+        tk.Label(self, text="Number of Pills:").pack()
+        self.numberOfPillsEntry = tk.Entry(self)
+        self.numberOfPillsEntry.pack()
+
+        tk.Label(self, text="Reminder Required (yes/no):").pack()
+        self.reminderRequiredEntry = tk.Entry(self)
+        self.reminderRequiredEntry.pack()
+
+        submitButton = tk.Button(self, text="Add Medication", command=self.submitMedication)
+        submitButton.pack()
+
+    def submitMedication(self):
+        medicationName = self.medicationNameEntry.get()
+        stomachRequirement = self.stomachRequirementEntry.get()
+        timing = self.timingEntry.get()
+        mealTimes = self.mealTimesEntry.get()
+        duration = self.durationEntry.get()
+        numberOfPills = self.numberOfPillsEntry.get()
+        reminderRequired = self.reminderRequiredEntry.get()
+
+        # Validation can be performed here
+        # For simplicity, assume the user has entered all values correctly
+
+        prescriptionId = f"{self.prescriptionName}-{self.currentMedication + 1}"
+        reminderRequired = 1 if reminderRequired.lower() == 'yes' else 0
+
+        self.prescriptions.append((prescriptionId, self.prescriptionName, medicationName, stomachRequirement, timing, mealTimes, int(duration), int(numberOfPills), reminderRequired))
+        self.currentMedication += 1
+
+        # Clear the entries for the next medication
+        self.medicationNameEntry.delete(0, tk.END)
+        self.stomachRequirementEntry.delete(0, tk.END)
+        self.timingEntry.delete(0, tk.END)
+        self.mealTimesEntry.delete(0, tk.END)
+        self.durationEntry.delete(0, tk.END)
+        self.numberOfPillsEntry.delete(0, tk.END)
+        self.reminderRequiredEntry.delete(0, tk.END)
+
+        if self.currentMedication >= self.numMedications:
+            self.callback(self.prescriptions)
+            self.destroy()
