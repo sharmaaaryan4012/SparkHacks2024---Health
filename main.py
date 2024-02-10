@@ -14,11 +14,10 @@ class MainPage(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title('Super Health App')
-        # self.configure(bg='black')
         self.geometry('600x400')
-        self.create_widgets()
+        self.widget()
 
-    def create_widgets(self):
+    def widget(self):
         welcome_label = tk.Label(self, text="Welcome To The Super Health App", fg='black', bg='white', font=('Helvetica', 25, 'bold'))
         welcome_label.pack(pady=20)
 
