@@ -20,10 +20,9 @@ class AboutPage(tk.Frame):
             "Creators: Aaryan Sharma, Ayush Bhardwaj\n"
             "Event: SparkHacks-2024\n"
             "University of Illinois at Chicago\n\n"
-            "This application is designed to be an all-in-one health companion.\n"
-            "It provides a platform for users to manage health-related activities\n"
-            "including doctor appointments, prescriptions, health reminders, and\n"
-            "mindfulness exercises."
+            """Our \"super\" health app aims to aid your wellness journey by bringing together a variety of essential health services and information all in one place. \n
+Just like Tata Neu(an Indian \"super\" app) offers a versatile shopping experience, our app provides personalized solutions for your health needs. From accessing telemedicine\n
+services and even mental health support, our app tries to offer convenience and support for your well-being. Say hello to a healthier,happier you with our super health app!"""
         )
 
         titleLabel = tk.Label(self, text="About Super Health App", bg='white', fg='black', font=('Helvetica', 18, 'bold'))
