@@ -5,6 +5,7 @@ SparkHacks-2024 (University of Illinois at Chicago)
 """
 
 import tkinter as tk
+from tkinter import scrolledtext
 import sqlite3
 
 
@@ -42,7 +43,7 @@ class MindfulPage(tk.Frame):
         self.output_label = tk.Label(self, text="", wraplength=500, justify="left")
         self.output_label.pack(pady=20)
 
-    def searchContent (self):
+    def searchContent(self):
         content_type = self.content_var.get()
         search_tags = self.search_entry.get()
         results = self.getContent(content_type, search_tags)
@@ -53,12 +54,13 @@ class MindfulPage(tk.Frame):
 
         self.output_label.config(text=output_text)
 
-    def getContent (self, content_type, search_tags):
+    def getContent(self, content_type, search_tags):
         conn = sqlite3.connect('project.db')
         cursor = conn.cursor()
 
+        # Adjusted query to search in both 'title' and 'tags'
         search_query = f"%{search_tags}%"
-        cursor.execute("SELECT title, url FROM mindful_space WHERE contentType=? AND tags LIKE ?", (content_type, search_query))
+        cursor.execute("SELECT title, url FROM mindful_space WHERE contentType=? AND (tags LIKE ? OR title LIKE ?)", (content_type, search_query, search_query))
         results = cursor.fetchall()
 
         conn.close()
