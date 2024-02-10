@@ -9,6 +9,7 @@ import tkinter as tk
 from mindful import MindfulPage
 from tkinter import messagebox
 from prescription import PrescriptionPage
+from about import AboutPage
 import subprocess
 import sys
 import os
@@ -61,7 +62,9 @@ class MainPage(tk.Tk):
         MindfulPage(self, self.CallBack)
 
     def gotoAbout(self):
-        messagebox.showinfo("About", "Creators: Aaryan Sharma, Ayush Bhardwaj\nSparkHacks-2024 (University of Illinois at Chicago)")
+        for widget in self.winfo_children():
+            widget.destroy()
+        AboutPage(self, self.CallBack).pack(fill=tk.BOTH, expand=True)
 
     def gotoSpaceGame(self):
         messagebox.showinfo("Space Game", "Starting the Space Game...")
