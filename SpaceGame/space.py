@@ -54,7 +54,7 @@ def game_start():                                                               
   title.goto(0,300)
   title.color("white")
   title.fillcolor("white")
-  title.write("Which way?",False, align='center', font=('Arial', 40,"bold")) 
+  title.write("Which way? (But Space Themed)",False, align='center', font=('Arial', 40,"bold"))
 
   start = turtle.Turtle()
   start.penup()
@@ -87,7 +87,7 @@ def game_instruction(x,y):                                                      
   title.goto(0,300)
   title.color("white")
   title.fillcolor("white")
-  title.write("INSTRUCTIONS",False, align='center', font=('Arial', 40,"bold"))
+  title.write("INSTRUCTIONS (But Space Themed)",False, align='center', font=('Arial', 40,"bold"))
 
   a = 200
 
@@ -232,6 +232,14 @@ def game_main(x,y):                                                             
   s.clearscreen()
   s.bgpic("space.gif")
 
+  title = turtle.Turtle()
+  title.penup()
+  title.turtlesize(0.1)
+  title.goto(0, 300)
+  title.color("white")
+  title.fillcolor("white")
+  title.write("THE GAME (But Space Themed)", False, align='center', font=('Arial', 30, "bold"))
+
   num = turtle.Turtle()
   num.color("white")
   num.fillcolor("white")
@@ -304,6 +312,7 @@ addshape("Ladders.gif")
 
 s = turtle.getscreen()
 s.bgpic("space.gif")
+s.setup(width=1.0, height=1.0)
 s.listen()
 
 game_start()

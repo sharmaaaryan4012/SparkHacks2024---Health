@@ -1,1 +1,1 @@
-This game demonstrates a small percentage of challenges that most of us face as college students.
+This game demonstrates a small percentage of challenges that most of us face as college students. But, the twist is that this game tries to adopt a space theme, for the purpose of SparkHacks-2024.
