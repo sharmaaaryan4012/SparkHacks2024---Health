@@ -15,6 +15,7 @@ import subprocess
 import sys
 import os
 
+
 class MainPage(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -23,6 +24,7 @@ class MainPage(tk.Tk):
         self.state('zoomed')
         self.configure(bg='white')
         self.createWidgets()
+
 
     def createWidgets(self):
         welcomeLabel = tk.Label(self, text="Welcome to Onboard with the All-in-one Health Companion!", fg='black', bg='white', font=('Helvetica', 25, 'bold'))
@@ -61,16 +63,20 @@ class MainPage(tk.Tk):
         self.clearWidgets()
         DoctorsPage(self, self.callback).pack(fill=tk.BOTH, expand=True)
 
+
     def gotoPrescription(self):
         self.clearWidgets()
         PrescriptionPage(self, self.callback).pack(fill=tk.BOTH, expand=True)
 
+
     def gotoReminders(self):
         messagebox.showinfo("Go to Reminders", "This will go to the Reminders section.")
+
 
     def gotoMindful(self):
         self.clearWidgets()
         MindfulPage(self, self.callback).pack(fill=tk.BOTH, expand=True)
+
 
     def gotoAbout(self):
         self.clearWidgets()
@@ -86,13 +92,16 @@ class MainPage(tk.Tk):
         spaceGamePath = os.path.join(currentDir, 'SpaceGame', 'space.py')
         subprocess.Popen([sys.executable, spaceGamePath])
 
+
     def callback(self):
         self.clearWidgets()
         self.createWidgets()
 
+
     def clearWidgets(self):
         for widget in self.winfo_children():
             widget.destroy()
+
 
 if __name__ == '__main__':
     app = MainPage()

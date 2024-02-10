@@ -35,6 +35,7 @@ class DoctorsPage(tk.Frame):
         backButton = tk.Button(self, text="Back", command=self.goBack)
         backButton.pack(pady=(0, 10))
 
+
     def searchDoctors(self):
         searchQuery = self.searchEntry.get().strip().lower()
         results = self.getDoctorsFromDB(searchQuery)

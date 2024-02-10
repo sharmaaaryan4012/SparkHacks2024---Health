@@ -18,6 +18,7 @@ class MindfulPage(tk.Frame):
         self.goBackCall = goBackCall
         self.pack()
 
+
     def widget(self):
         intro_label = tk.Label(self,
                                text="A tech solution that prioritizes mental health and well-being within communities.",
@@ -43,6 +44,7 @@ class MindfulPage(tk.Frame):
         self.output_label = tk.Label(self, text="", wraplength=500, justify="left")
         self.output_label.pack(pady=20)
 
+
     def searchContent(self):
         content_type = self.contentTypeVar.get()
         search_tags = self.searchEntry.get()
@@ -58,6 +60,7 @@ class MindfulPage(tk.Frame):
             for title, url in results:
                 self.resultsScrolledText.insert(tk.END, f"Title: {title}\nURL: {url}\n\n")
 
+
     def getContent(self, content_type, search_tags):
         conn = sqlite3.connect('project.db')
         cursor = conn.cursor()
@@ -68,6 +71,7 @@ class MindfulPage(tk.Frame):
 
         conn.close()
         return results
+
 
     def goBack(self):
         self.destroy()
