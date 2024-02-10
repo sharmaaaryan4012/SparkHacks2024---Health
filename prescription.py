@@ -4,9 +4,8 @@ Creators: Aaryan Sharma, Ayush Bhardwaj
 SparkHacks-2024 (University of Illinois at Chicago)
 """
 
-
 import tkinter as tk
-from tkinter import messagebox, simpledialog, scrolledtext
+from tkinter import messagebox, simpledialog
 import sqlite3
 
 class PrescriptionPage(tk.Frame):
@@ -16,7 +15,8 @@ class PrescriptionPage(tk.Frame):
         self.goBackCall = goBackCall
         self.database = 'project.db'
         self.createWidgets()
-        self.pack(fill='both', expand=True)
+        self.pack()
+
 
     def createWidgets(self):
         self.master.title('Prescription Manager')
@@ -24,7 +24,6 @@ class PrescriptionPage(tk.Frame):
         viewPrescriptionLabel = tk.Label(self, text="View Prescription", font=('Helvetica', 18, 'bold'))
         viewPrescriptionLabel.pack(pady=20)
 
-        # List prescriptions in a scrolled text widget for better scrolling functionality
         self.prescriptionListBox = tk.Listbox(self, width=50, height=10)
         self.prescriptionListBox.pack(pady=20)
         self.loadPrescriptions()
@@ -41,48 +40,49 @@ class PrescriptionPage(tk.Frame):
         backButton = tk.Button(self, text="Back", command=self.goBack)
         backButton.pack(pady=20)
 
+
     def loadPrescriptions(self):
         self.prescriptionListBox.delete(0, tk.END)
         conn = sqlite3.connect(self.database)
         cursor = conn.cursor()
-        cursor.execute("SELECT prescriptionId, medicationName FROM prescriptions")
+        cursor.execute("SELECT prescriptionName FROM prescriptions")
         for row in cursor.fetchall():
-            self.prescriptionListBox.insert(tk.END, f"ID {row[0]}: {row[1]}")
+            self.prescriptionListBox.insert(tk.END, row[0])
         conn.close()
+
 
     def viewPrescription(self):
         selected = self.prescriptionListBox.curselection()
         if selected:
-            prescriptionId = self.prescriptionListBox.get(selected).split(':')[0].replace("ID ", "")
+            prescriptionName = self.prescriptionListBox.get(selected)
             conn = sqlite3.connect(self.database)
             cursor = conn.cursor()
-            cursor.execute("SELECT * FROM prescriptions WHERE prescriptionId = ?", (prescriptionId,))
+            cursor.execute("SELECT * FROM prescriptions WHERE prescriptionName = ?", (prescriptionName,))
             prescription = cursor.fetchone()
-            details = f"Prescription Name: {prescription[0]}\nMedication Name: {prescription[1]}\nStomach Requirement: {prescription[2]}\nTiming: {prescription[3]}\nBreakfast Time: {prescription[4]}\nLunch Time: {prescription[8]}\nDinner Time: {prescription[9]}\nDuration: {prescription[5]} days\nNumber of Pills: {prescription[6]}\nReminder Required: {'Yes' if prescription[7] else 'No'}"
+            details = f"Prescription Name: {prescription[0]}\nMedication Name: {prescription[1]}\nStomach Requirement: {prescription[2]}\nTiming: {prescription[3]}\nBreakfast Time: {prescription[4]}\nDuration: {prescription[5]} days\nNumber of Pills: {prescription[6]}\nReminder Required: {'Yes' if prescription[7] else 'No'}\nLunch Time: {prescription[8]}\nDinner Time: {prescription[9]}"
             messagebox.showinfo("Prescription Details", details)
             conn.close()
 
+
     def addNewPrescription(self):
-        # Code to handle adding a new prescription
-        # This could be a form or a new popup window where you input the prescription details
         pass
+
 
     def removePrescription(self):
         selected = self.prescriptionListBox.curselection()
         if selected:
             result = messagebox.askyesno("Remove Prescription", "Are you sure you want to remove this prescription?")
             if result:
-                prescriptionId = self.prescriptionListBox.get(selected).split(':')[0].replace("ID ", "")
+                prescriptionName = self.prescriptionListBox.get(selected)
                 conn = sqlite3.connect(self.database)
                 cursor = conn.cursor()
-                cursor.execute("DELETE FROM prescriptions WHERE prescriptionId = ?", (prescriptionId,))
+                cursor.execute("DELETE FROM prescriptions WHERE prescriptionName = ?", (prescriptionName,))
                 conn.commit()
                 conn.close()
                 self.loadPrescriptions()
 
+
     def goBack(self):
         self.destroy()
         self.goBackCall()
-
-# The rest of your code remains the same
 
