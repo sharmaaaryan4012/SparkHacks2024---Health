@@ -68,13 +68,14 @@ class PrescriptionPage(tk.Frame):
             num_meds = int(self.num_meds_entry.get())
             self.prescription_details = {
                 'pres_name': self.pres_name_entry.get().upper(),
-                'meds': []
+                'meds': [],
+                'reminder': False  # Initialize the reminder attribute
             }
             self.clear_widgets()
             Label(self, text=f"Enter Details for {num_meds} Medications", font=('Helvetica', 16)).pack(pady=20)
             self.meds_entries = []
             for i in range(num_meds):
-                Label(self, text=f"Medicine {i+1} Name:").pack()
+                Label(self, text=f"Medicine {i + 1} Name:").pack()
                 med_name_entry = Entry(self)
                 med_name_entry.pack()
 
@@ -94,7 +95,13 @@ class PrescriptionPage(tk.Frame):
                 med_time_entry = Entry(self)
                 med_time_entry.pack()
 
-                self.meds_entries.append((med_name_entry, num_pills_entry, med_dur_entry, med_empty_entry, med_time_entry))
+                self.meds_entries.append(
+                    (med_name_entry, num_pills_entry, med_dur_entry, med_empty_entry, med_time_entry))
+
+            Label(self, text="Do you want to set a reminder? (Y/N):").pack()
+            self.reminder_entry = Entry(self)
+            self.reminder_entry.pack()
+
             Button(self, text="Submit", command=self.collect_meds_details).pack(pady=10)
             Button(self, text="Back", command=self.create_prescription_form).pack(pady=10)
         except ValueError:
@@ -111,9 +118,13 @@ class PrescriptionPage(tk.Frame):
                 'name': med_name,
                 'pills': num_pills,
                 'duration': med_dur,
-                'empty': med_empty_translated,  # Use the translated value
+                'empty': med_empty_translated,
                 'time': med_time,
             })
+
+        reminder_response = self.reminder_entry.get().lower()
+        self.prescription_details['reminder'] = True if reminder_response == 'y' else False
+
         self.show_prescription_summary()
 
     def show_prescription_summary(self):
@@ -121,7 +132,11 @@ class PrescriptionPage(tk.Frame):
         Label(self, text="Prescription Summary", font=('Helvetica', 16)).pack(pady=20)
         Label(self, text=f"Prescription Name: {self.prescription_details['pres_name']}").pack()
         for med in self.prescription_details['meds']:
-            Label(self, text=f"Name of the Medicine: {med['name']}\n The number of Pills: {med['pills']}\n The Medicine is prescribed for: {med['duration']} days\n The Medicine should be taken: {med['empty']} stomach\n The medicine is to be taken at: (M : Morning, A : Afternoon, E : Evening, N : Night) {med['time']}").pack()
+            Label(self,
+                  text=f"Name of the Medicine: {med['name']}\n The number of Pills: {med['pills']}\n The Medicine is prescribed for: {med['duration']} days\n The Medicine should be taken: {med['empty']} stomach\n The medicine is to be taken at: (M : Morning, A : Afternoon, E : Evening, N : Night) {med['time']}").pack()
+        reminder_text = "Yes" if self.prescription_details['reminder'] else "No"
+        Label(self, text=f"Reminder Set: {reminder_text}").pack()
+
         Button(self, text="Back to Main Menu", command=self.main_menu).pack(pady=10)
 
     def back(self):
@@ -131,6 +146,8 @@ class PrescriptionPage(tk.Frame):
     def clear_widgets(self):
         for widget in self.winfo_children():
             widget.destroy()
+
+
 
 
 
