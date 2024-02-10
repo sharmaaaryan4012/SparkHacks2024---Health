@@ -2,7 +2,7 @@
 Project: Super Health App
 Creators: Aaryan Sharma, Ayush Bhardwaj
 SparkHacks-2024 (University of Illinois at Chicago)
-     hey"""
+"""
 
 
 
@@ -30,21 +30,21 @@ class PrescriptionPage(tk.Frame):
 
         # Listbox for prescriptions
         self.prescriptionListBox = tk.Listbox(self, width=50, height=10)
-        self.prescriptionListBox.pack(pady=20)
+        self.prescriptionListBox.pack(pady=5)
         self.loadPrescriptions()
 
         # Buttons for different actions
-        viewButton = tk.Button(self, text="View",fg = "purple4", bg = "white", font =("Arial", 20, "bold"), command=self.viewPrescription)
-        viewButton.pack(side=tk.TOP, padx=20, pady=5)
+        viewButton = tk.Button(self, text="View",fg = "purple4", bg = "white", font =("Arial", 15, "bold"), command=self.viewPrescription)
+        viewButton.pack(side=tk.TOP, padx=20, pady=2)
 
-        addButton = tk.Button(self, text="Add New",fg = "purple4", bg = "white", font =("Arial", 20, "bold"), command=self.addNewPrescription)
-        addButton.pack(side=tk.TOP, padx=20, pady=5)
+        addButton = tk.Button(self, text="Add New",fg = "purple4", bg = "white", font =("Arial", 15, "bold"), command=self.addNewPrescription)
+        addButton.pack(side=tk.TOP, padx=20, pady=2)
 
-        removeButton = tk.Button(self, text="Remove",fg = "purple4", bg = "white", font =("Arial", 20, "bold"), command=self.removePrescription)
-        removeButton.pack(side=tk.TOP, padx=20, pady=5)
+        removeButton = tk.Button(self, text="Remove",fg = "purple4", bg = "white", font =("Arial", 15, "bold"), command=self.removePrescription)
+        removeButton.pack(side=tk.TOP, padx=20, pady=2)
 
-        backButton = tk.Button(self, text="Back",fg = "purple4", bg = "white", font =("Arial", 20, "bold"), command=self.goBack)
-        backButton.pack(side=tk.TOP, pady=5)
+        backButton = tk.Button(self, text="Back",fg = "purple4", bg = "white", font =("Arial", 15, "bold"), command=self.goBack)
+        backButton.pack(side=tk.TOP, pady=2)
         bottom_frame = tk.Frame(self, bg='purple4', height=50)
         bottom_frame.pack(side='bottom', fill='x', expand=False)
         bottom_frame.pack_propagate(False)
