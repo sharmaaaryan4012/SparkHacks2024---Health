@@ -43,15 +43,15 @@ class AddPrescriptionForm(tk.Frame):
         self.timingEntry.pack()
 
         # Meal Timings
-        tk.Label(self, text="Breakfast Time:").pack()
+        tk.Label(self, text="Breakfast Time(HH:MM):").pack()
         self.bTimeEntry = tk.Entry(self)
         self.bTimeEntry.pack()
 
-        tk.Label(self, text="Lunch Time:").pack()
+        tk.Label(self, text="Lunch Time(HH:MM):").pack()
         self.lTimeEntry = tk.Entry(self)
         self.lTimeEntry.pack()
 
-        tk.Label(self, text="Dinner Time:").pack()
+        tk.Label(self, text="Dinner Time(HH:MM):").pack()
         self.dTimeEntry = tk.Entry(self)
         self.dTimeEntry.pack()
 

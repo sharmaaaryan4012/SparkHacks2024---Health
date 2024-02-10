@@ -18,7 +18,6 @@ class PrescriptionPage(tk.Frame):
         self.createWidgets()
         self.pack()
 
-
     def createWidgets(self):
         self.master.title('Prescription Manager')
 
@@ -27,19 +26,22 @@ class PrescriptionPage(tk.Frame):
 
         self.prescriptionListBox = tk.Listbox(self, width=50, height=10)
         self.prescriptionListBox.pack(pady=20)
-        self.loadPrescriptions()
 
-        viewButton = tk.Button(self, text="View", command=self.viewPrescription)
-        viewButton.pack(side=tk.LEFT, padx=20, pady=10)
+        # Create a frame to hold the buttons in a horizontal layout
+        buttonFrame = tk.Frame(self)
+        buttonFrame.pack(pady=10)
 
-        addButton = tk.Button(self, text="Add New", command=self.addNewPrescription)
-        addButton.pack(side=tk.LEFT, padx=20, pady=10)
+        viewButton = tk.Button(buttonFrame, text="View", command=self.viewPrescription)
+        viewButton.pack(side=tk.LEFT, padx=10)
 
-        removeButton = tk.Button(self, text="Remove", command=self.removePrescription)
-        removeButton.pack(side=tk.LEFT, padx=20, pady=10)
+        addButton = tk.Button(buttonFrame, text="Add New", command=self.addNewPrescription)
+        addButton.pack(side=tk.LEFT, padx=10)
 
-        backButton = tk.Button(self, text="Back", command=self.goBack)
-        backButton.pack(pady=20)
+        removeButton = tk.Button(buttonFrame, text="Remove", command=self.removePrescription)
+        removeButton.pack(side=tk.LEFT, padx=10)
+
+        backButton = tk.Button(buttonFrame, text="Back", command=self.goBack)
+        backButton.pack(side=tk.LEFT, padx=10)
 
 
     def loadPrescriptions(self):
