@@ -121,7 +121,7 @@ def game_instruction(x,y):                                                      
 def game_win():                                                                  # function used to define the congratulatory screen, containing the overall theme of the project.
     global s
     s.clearscreen()
-    s.bgcolor("Black")
+    s.bgpic("space.gif")
     win = turtle.Turtle()
     win.penup()
     win.turtlesize(0.1)
@@ -230,7 +230,7 @@ def game_main(x,y):                                                             
   global t
 
   s.clearscreen()
-  s.bgcolor("black")
+  s.bgpic("space.gif")
 
   num = turtle.Turtle()
   num.color("white")
