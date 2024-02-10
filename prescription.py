@@ -4,9 +4,11 @@ Creators: Aaryan Sharma, Ayush Bhardwaj
 SparkHacks-2024 (University of Illinois at Chicago)
 """
 
+
+
 import tkinter as tk
-from addPrescription import AddPrescriptionForm
 from tkinter import messagebox
+from addPrescription import AddPrescriptionForm
 import sqlite3
 
 class PrescriptionPage(tk.Frame):
@@ -21,28 +23,27 @@ class PrescriptionPage(tk.Frame):
     def createWidgets(self):
         self.master.title('Prescription Manager')
 
+        # Label for Prescription Manager section
         viewPrescriptionLabel = tk.Label(self, text="View Prescription", font=('Helvetica', 18, 'bold'))
         viewPrescriptionLabel.pack(pady=20)
 
+        # Listbox for prescriptions
         self.prescriptionListBox = tk.Listbox(self, width=50, height=10)
         self.prescriptionListBox.pack(pady=20)
+        self.loadPrescriptions()
 
-        # Create a frame to hold the buttons in a horizontal layout
-        buttonFrame = tk.Frame(self)
-        buttonFrame.pack(pady=10)
+        # Buttons for different actions
+        viewButton = tk.Button(self, text="View", command=self.viewPrescription)
+        viewButton.pack(side=tk.LEFT, padx=20, pady=10)
 
-        viewButton = tk.Button(buttonFrame, text="View", command=self.viewPrescription)
-        viewButton.pack(side=tk.LEFT, padx=10)
+        addButton = tk.Button(self, text="Add New", command=self.addNewPrescription)
+        addButton.pack(side=tk.LEFT, padx=20, pady=10)
 
-        addButton = tk.Button(buttonFrame, text="Add New", command=self.addNewPrescription)
-        addButton.pack(side=tk.LEFT, padx=10)
+        removeButton = tk.Button(self, text="Remove", command=self.removePrescription)
+        removeButton.pack(side=tk.LEFT, padx=20, pady=10)
 
-        removeButton = tk.Button(buttonFrame, text="Remove", command=self.removePrescription)
-        removeButton.pack(side=tk.LEFT, padx=10)
-
-        backButton = tk.Button(buttonFrame, text="Back", command=self.goBack)
-        backButton.pack(side=tk.LEFT, padx=10)
-
+        backButton = tk.Button(self, text="Back", command=self.goBack)
+        backButton.pack(pady=20)
 
     def loadPrescriptions(self):
         self.prescriptionListBox.delete(0, tk.END)
@@ -52,7 +53,6 @@ class PrescriptionPage(tk.Frame):
         for row in cursor.fetchall():
             self.prescriptionListBox.insert(tk.END, row[0])
         conn.close()
-
 
     def viewPrescription(self):
         selected = self.prescriptionListBox.curselection()
@@ -66,11 +66,9 @@ class PrescriptionPage(tk.Frame):
             messagebox.showinfo("Prescription Details", details)
             conn.close()
 
-
     def addNewPrescription(self):
         self.clearWidgets()
         AddPrescriptionForm(self.master, self.goBackCall, self.database)
-
 
     def removePrescription(self):
         selected = self.prescriptionListBox.curselection()
@@ -84,7 +82,6 @@ class PrescriptionPage(tk.Frame):
                 conn.commit()
                 conn.close()
                 self.loadPrescriptions()
-
 
     def goBack(self):
         self.destroy()
