@@ -1,7 +1,11 @@
+Here's your updated README with the additional links:
+
+---
+
 # Super Health App
 
 ## Overview
-Super Health App is a health management system designed to streamline the tracking of medical prescriptions, and wellness activities.
+Super Health App is a health management system designed to streamline the tracking of medical prescriptions and wellness activities.
 
 ## Features
 - Doctors Appointment Management
@@ -22,3 +26,7 @@ Super Health App is a health management system designed to streamline the tracki
 ### Running the Application
 1. Run the main application: `python main.py`
 2. Access the various services through the GUI.
+
+## Links
+- [Devpost Submission](https://devpost.com/software/superhealth)
+- [Demonstration Video](https://www.youtube.com/watch?v=KmfvAucKpX0)
