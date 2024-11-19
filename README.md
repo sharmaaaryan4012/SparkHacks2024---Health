@@ -20,7 +20,7 @@ Super Health App is a health management system designed to streamline the tracki
 - SQLite3
 
 ### Installation
-1. Clone the repository: `git clone https://github.com/your-username/SparkHacks2024---Health.git`
+1. Clone the repository: `git clone https://github.com/your-username/SparkHacks2024---Health`
 2. Navigate to the project directory: `cd SparkHacks2024---Health`
 
 ### Running the Application
